@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Timbrum</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_host">Host</string>
+    <string name="pref_host_summary">Address of HR Zucchetti portal\n(e.g. https://saas.hrzucchetti.it/hrpabc/ )</string>
+    <string name="pref_username">Username</string>
+    <string name="pref_username_summary">Username used to login to Zucchetti portal</string>
+    <string name="pref_password">Password</string>
+    <string name="pref_password_summary">Password used to login to Zucchetti portal</string>
+    <string name="button_enter">Entra</string>
+    <string name="button_exit">Esci</string>
+    <string name="textview_timbraturedelgiorno">Timbrature del giorno</string>
+
+</resources>
