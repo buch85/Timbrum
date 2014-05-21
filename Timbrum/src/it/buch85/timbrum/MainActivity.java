@@ -1,10 +1,13 @@
 package it.buch85.timbrum;
 
-import it.buch85.timbrum.request.Records;
-import it.buch85.timbrum.request.Records.Record;
+import it.buch85.timbrum.request.LoginRequest.LoginResult;
+import it.buch85.timbrum.request.RecordTimbratura;
+import it.buch85.timbrum.request.TimbraturaRequest;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,8 +40,7 @@ public class MainActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			timbrumPreferences=new TimbrumPreferences(PreferenceManager.getDefaultSharedPreferences(this));
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 			buttonEnter = (Button) findViewById(R.id.button_enter);
 			buttonExit = (Button) findViewById(R.id.button_exit);
 			listView= (ListView)findViewById(R.id.listView1);
@@ -60,11 +62,12 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	protected void exit() {
-		Toast.makeText(this, "Exit", 3).show();
+		new TimbrumTask(TimbraturaRequest.VERSO_USCITA).execute();
+		
 	}
 
 	protected void enter() {
-		Toast.makeText(this, "Enter", 3).show();
+		new TimbrumTask(TimbraturaRequest.VERSO_ENTRATA).execute();
 	}
 
 	private void enableDisableButtons() {
@@ -91,29 +94,9 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		new AsyncTask<String,Void,Records>(){
-			@Override
-			protected Records doInBackground(String... params) {
-				Timbrum timbrum=new Timbrum(timbrumPreferences.getHost(),timbrumPreferences.getUsername(),timbrumPreferences.getPassword());
-				try {
-					if(timbrum.login()){
-						return timbrum.getReport(new Date());
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}finally{
-					timbrum.close();
-				}
-				return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Records result) {
-				if(result!=null){
-					listView.setAdapter(new ArrayAdapter<Record>(MainActivity.this, R.layout.row,result.getData()));
-				}
-			};
-		}.execute();
+		if(timbrumPreferences.arePreferencesValid()){
+			new TimbrumTask().execute();
+		}
 	}
 	
 	@Override
@@ -127,6 +110,87 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private final class TimbrumTask extends AsyncTask<String, String, ArrayList<RecordTimbratura>> {
+		String versoTimbratura=null;
+		private ProgressDialog progressDialog;
+		
+		String message="";
+		private Timbrum timbrum;
+		public TimbrumTask() {
+			this(null);
+		}
+		
+		public TimbrumTask(String timbratura) {
+			this.versoTimbratura=timbratura;
+			progressDialog=new ProgressDialog(MainActivity.this);
+			progressDialog.setTitle("Loading");
+			progressDialog.setMessage("Please wait...");
+			timbrum=new Timbrum(timbrumPreferences.getHost(),timbrumPreferences.getUsername(),timbrumPreferences.getPassword());
+		}
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			listView.setAdapter(null);
+			progressDialog.show();
+		}
+		
+		@Override
+		protected ArrayList<RecordTimbratura> doInBackground(String... params) {
+			try {
+				publishProgress("Logging in...");
+				LoginResult loginResult=timbrum.login();
+				if(loginResult.isSuccess()){
+					if(versoTimbratura!=null){
+						publishProgress("Sto timbrando...");
+						timbrum.timbra(versoTimbratura);
+						if(versoTimbratura.equals(TimbraturaRequest.VERSO_ENTRATA)){
+							publishProgress("Entrato");
+						}else if(versoTimbratura.equals(TimbraturaRequest.VERSO_ENTRATA)){
+							publishProgress("Uscito");
+						}
+					}
+					publishProgress("Caricamento info...");
+					return timbrum.getReport(new Date());
+				}else{
+					message="Login Error: " +loginResult.getMessage();
+				}
+			} catch (Exception e) {
+				message="Error: " +e.getMessage();
+			}finally{
+				timbrum.close();
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onProgressUpdate(String... values) {
+			super.onProgressUpdate(values);
+			for(String value:values){
+				progressDialog.setMessage(value);
+			}
+		}
+
+		@Override
+		protected void onPostExecute(ArrayList<RecordTimbratura> result) {
+			
+			
+			progressDialog.dismiss();
+			if(result!=null){
+				listView.setAdapter(new ArrayAdapter<RecordTimbratura>(MainActivity.this, R.layout.row,R.id.textViewList,result));
+			}else{
+				Toast.makeText(MainActivity.this, message, 5).show();
+			}
+		}
+		
+		@Override
+		protected void onCancelled() {
+			cancel(true);
+			progressDialog.dismiss();
+		}
+
+		
 	}
 
 	/**

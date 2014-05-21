@@ -28,7 +28,6 @@ public class LoginRequest extends AbstractRequest {
     private static String ACTION_FIELD_VALUE = "login";
 
     private static String REDIRECT_OK_URL = "https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp";
-    private String message;
 
     public LoginRequest(HttpClient httpclient, HttpContext context) {
         super(httpclient, context);
@@ -42,7 +41,7 @@ public class LoginRequest extends AbstractRequest {
         this.password = password;
     }
 
-    public boolean submit() throws IOException {
+    public LoginResult submit() throws IOException {
     	
     	HttpPost login = new HttpPost(URI.create(url));
     	List<NameValuePair> formparams = new ArrayList<NameValuePair>();
@@ -52,10 +51,11 @@ public class LoginRequest extends AbstractRequest {
         login.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
         HttpClientParams.setRedirecting(httpclient.getParams(), false);
         HttpResponse response = httpclient.execute(login,context);
+        String message="";
         if (response.getStatusLine().getStatusCode() == 302) {
             Header[] location = response.getHeaders("Location");
             if (location.length > 0 && REDIRECT_OK_URL.equals(location[0].getValue())) {
-                return true;
+                return new LoginResult(true,message);
             }
         } else {
             Header[] jsurlMessage = response.getHeaders("JSURL-Message");
@@ -63,10 +63,23 @@ public class LoginRequest extends AbstractRequest {
                 message = jsurlMessage[0].getValue();
             }
         }
-        return false;
+        return new LoginResult(false, message);
     }
 
-    public String getMessage() {
-        return message;
+    
+    public class LoginResult{
+    	boolean success=false;
+    	String message="";
+    	public LoginResult(boolean success,String message) {
+    		this.success=success;
+    		this.message=message;
+		}
+    	
+    	public boolean isSuccess() {
+			return success;
+		}
+    	public String getMessage() {
+			return message;
+		}
     }
 }

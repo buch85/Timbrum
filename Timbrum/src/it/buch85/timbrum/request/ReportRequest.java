@@ -1,5 +1,6 @@
 package it.buch85.timbrum.request;
 
+
 import java.io.IOException;
 import java.net.URI;
 import java.text.DateFormat;
@@ -35,7 +36,7 @@ public class ReportRequest extends AbstractRequest {
     }
 
 
-    public Records getTimbrature(Date date) throws IOException, JSONException {
+    public ArrayList<RecordTimbratura> getTimbrature(Date date) throws IOException, JSONException {
     	HttpPost report =new HttpPost(URI.create(url));
     	List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         formparams.add(new BasicNameValuePair("rows", "10"));
@@ -63,7 +64,13 @@ public class ReportRequest extends AbstractRequest {
             }
             records.add(values);
         }
-        return new Records(headers, records);
+
+        ArrayList<RecordTimbratura> timbrature=new ArrayList<RecordTimbratura>();
+        for(int i=0;i<records.size();i++){
+        	RecordTimbratura r=new RecordTimbratura(records.get(i),headers);
+        	timbrature.add(r);
+        }
+        return timbrature;
     }
 
 }

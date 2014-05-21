@@ -1,11 +1,13 @@
 package it.buch85.timbrum;
 
 import it.buch85.timbrum.request.LoginRequest;
-import it.buch85.timbrum.request.Records;
+import it.buch85.timbrum.request.LoginRequest.LoginResult;
+import it.buch85.timbrum.request.RecordTimbratura;
 import it.buch85.timbrum.request.ReportRequest;
 import it.buch85.timbrum.request.TimbraturaRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.client.protocol.ClientContext;
@@ -41,13 +43,13 @@ public class Timbrum {
         httpclient = AndroidHttpClient.newInstance("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11");
     }
 
-    public Records getReport(Date date) throws Exception {
+    public ArrayList<RecordTimbratura> getReport(Date date) throws Exception {
         ReportRequest report = new ReportRequest(httpclient,context);
         report.setUrl(host+SQL_DATA_PROVIDER_URL);
         return report.getTimbrature(new Date());
     }
 
-    public boolean login() throws IOException {
+    public LoginResult login() throws IOException {
         LoginRequest login = new LoginRequest(httpclient,context);
         login.setUrl(host+LOGIN_URL);
         login.setUsername(username);
