@@ -27,11 +27,12 @@ public class TimbraturaRequest extends AbstractRequest {
     }
 
     private void timbraVerso(String verso) throws IOException {
-    	HttpPost timbatura = new HttpPost(URI.create(url));
+    	request = new HttpPost(URI.create(url));
         List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         formparams.add(new BasicNameValuePair(VERSO_FIELD, verso));
-        timbatura.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
-        HttpResponse response = httpclient.execute(timbatura,context);
+        request.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
+        HttpResponse response = httpclient.execute(request,context);
+        response.getEntity().consumeContent();
         System.out.println("Login form get: " + response.getStatusLine());
     }
 

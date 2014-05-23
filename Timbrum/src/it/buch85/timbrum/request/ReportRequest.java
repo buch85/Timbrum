@@ -37,17 +37,18 @@ public class ReportRequest extends AbstractRequest {
 
 
     public ArrayList<RecordTimbratura> getTimbrature(Date date) throws IOException, JSONException {
-    	HttpPost report =new HttpPost(URI.create(url));
+    	request =new HttpPost(URI.create(url));
     	List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         formparams.add(new BasicNameValuePair("rows", "10"));
         formparams.add(new BasicNameValuePair("startrow", "0"));
         formparams.add(new BasicNameValuePair("count", "true"));
         formparams.add(new BasicNameValuePair("sqlcmd", "rows:ushp_fgettimbrus"));
         formparams.add(new BasicNameValuePair("pDATE", dateFormat.format(date)));
-        report.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
-        HttpResponse response = httpclient.execute(report,context);
+        request.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
+        HttpResponse response = httpclient.execute(request,context);
         HttpEntity entity = response.getEntity();
         String responseString=EntityUtils.toString(entity);
+        entity.consumeContent();
         JSONObject jsonObject=new JSONObject(responseString);
         JSONArray fields = jsonObject.getJSONArray("Fields");
         String[] headers= new String[fields.length()];

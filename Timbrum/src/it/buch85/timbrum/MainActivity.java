@@ -6,6 +6,9 @@ import it.buch85.timbrum.request.TimbraturaRequest;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,8 +25,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -32,56 +38,102 @@ public class MainActivity extends ActionBarActivity {
 	private Button buttonExit;
 	private TimbrumPreferences timbrumPreferences;
 	private ListView listView;
+	private ToggleButton buttonSafeExit;
+	private ToggleButton buttonSafeEnter;
+	private SafeButtonManager safeButtonManager;
+	ExecutorService executor;
+	private Button buttonRefresh;
 
+	class SafeButtonManager{
+		HashMap<Button, ToggleButton> map=new HashMap<Button, ToggleButton>();
+		private void setupSafe(final ToggleButton buttonSafe,final Button button) {
+			button.setEnabled(false);
+			buttonSafe.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					button.setEnabled(isChecked);
+				}
+			});
+			map.put(button, buttonSafe);
+		}
+		private void resetSafe(final Button button) {
+			button.setEnabled(false);
+			ToggleButton toggleButton = map.get(button);
+			if(toggleButton!=null){
+				toggleButton.setChecked(false);
+			}
+		}
+		
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		if (savedInstanceState == null) {
+			executor= Executors.newSingleThreadExecutor();
+			safeButtonManager = new SafeButtonManager();
 			timbrumPreferences=new TimbrumPreferences(PreferenceManager.getDefaultSharedPreferences(this));
 			getSupportFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+			buttonRefresh= (Button) findViewById(R.id.buttonRefresh);
 			buttonEnter = (Button) findViewById(R.id.button_enter);
 			buttonExit = (Button) findViewById(R.id.button_exit);
+			buttonSafeEnter = (ToggleButton) findViewById(R.id.button_safe_enter);
+			buttonSafeExit = (ToggleButton) findViewById(R.id.button_safe_exit);
 			listView= (ListView)findViewById(R.id.listView1);
+			safeButtonManager.setupSafe(buttonSafeEnter,buttonEnter);
+			safeButtonManager.setupSafe(buttonSafeExit,buttonExit);
 			buttonEnter.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					safeButtonManager.resetSafe(buttonEnter);
 					enter();
 				}
 			});
 			buttonExit.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					safeButtonManager.resetSafe(buttonExit);
 					exit();
+				}
+			});
+			
+			buttonRefresh.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					refresh();
 				}
 			});
 			
 		}
 		enableDisableButtons();
 	}
+	
+	protected void refresh() {
+		new TimbrumTask().executeOnExecutor(executor);
+	}
 
 	protected void exit() {
-		new TimbrumTask(TimbraturaRequest.VERSO_USCITA).execute();
+		new TimbrumTask(TimbraturaRequest.VERSO_USCITA).executeOnExecutor(executor);
 		
 	}
 
 	protected void enter() {
-		new TimbrumTask(TimbraturaRequest.VERSO_ENTRATA).execute();
+		new TimbrumTask(TimbraturaRequest.VERSO_ENTRATA).executeOnExecutor(executor);
 	}
 
 	private void enableDisableButtons() {
 		boolean arePreferencesValid = timbrumPreferences.arePreferencesValid();
-		buttonEnter.setEnabled(arePreferencesValid);
-		buttonExit.setEnabled(arePreferencesValid);
+		buttonRefresh.setEnabled(arePreferencesValid);
+		buttonSafeEnter.setEnabled(arePreferencesValid);
+		buttonSafeExit.setEnabled(arePreferencesValid);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		
 		return true;
 	}
 
@@ -94,9 +146,16 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if(timbrumPreferences.arePreferencesValid()){
-			new TimbrumTask().execute();
+		if(!paused && timbrumPreferences.arePreferencesValid()){
+			new TimbrumTask().executeOnExecutor(executor);
 		}
+	}
+	
+	boolean paused=false;
+	@Override
+	protected void onPause() {
+		super.onPause();
+		paused=true;
 	}
 	
 	@Override
@@ -125,6 +184,8 @@ public class MainActivity extends ActionBarActivity {
 		public TimbrumTask(String timbratura) {
 			this.versoTimbratura=timbratura;
 			progressDialog=new ProgressDialog(MainActivity.this);
+			progressDialog.setCancelable(false);
+			progressDialog.setCanceledOnTouchOutside(false);
 			progressDialog.setTitle("Loading");
 			progressDialog.setMessage("Please wait...");
 			timbrum=new Timbrum(timbrumPreferences.getHost(),timbrumPreferences.getUsername(),timbrumPreferences.getPassword());
@@ -158,8 +219,6 @@ public class MainActivity extends ActionBarActivity {
 				}
 			} catch (Exception e) {
 				message="Error: " +e.getMessage();
-			}finally{
-				timbrum.close();
 			}
 			return null;
 		}
@@ -174,8 +233,6 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		protected void onPostExecute(ArrayList<RecordTimbratura> result) {
-			
-			
 			progressDialog.dismiss();
 			if(result!=null){
 				listView.setAdapter(new ArrayAdapter<RecordTimbratura>(MainActivity.this, R.layout.row,R.id.textViewList,result));

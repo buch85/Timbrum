@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
+import org.apache.http.protocol.HttpRequestExecutor;
 
 /**
  * Created by mbacer on 11/04/14.
@@ -42,15 +43,15 @@ public class LoginRequest extends AbstractRequest {
     }
 
     public LoginResult submit() throws IOException {
-    	
-    	HttpPost login = new HttpPost(URI.create(url));
+    	request = new HttpPost(URI.create(url));
     	List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         formparams.add(new BasicNameValuePair(USERNAME_FIELD, username));
         formparams.add(new BasicNameValuePair(PASSWORD_FIELD, password));
         formparams.add(new BasicNameValuePair(ACTION_FIELD, ACTION_FIELD_VALUE));
-        login.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
+        request.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
         HttpClientParams.setRedirecting(httpclient.getParams(), false);
-        HttpResponse response = httpclient.execute(login,context);
+        HttpResponse response = httpclient.execute(request,context);
+        response.getEntity().consumeContent();
         String message="";
         if (response.getStatusLine().getStatusCode() == 302) {
             Header[] location = response.getHeaders("Location");

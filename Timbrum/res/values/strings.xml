@@ -12,5 +12,7 @@
     <string name="button_enter">Entra</string>
     <string name="button_exit">Esci</string>
     <string name="textview_timbraturedelgiorno">Timbrature del giorno</string>
+    <string name="todaysTimbrus">Timbrature del giorno</string>
+    <string name="refresh">Refresh</string>
 
 </resources>
