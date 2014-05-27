@@ -1649,17 +1649,17 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
-        public static final int action_settings=0x7f0b002e;
-        public static final int admobid=0x7f0b0039;
-        public static final int app_name=0x7f0b002d;
+        public static final int action_settings=0x7f0b002f;
+        public static final int admobid=0x7f0b002d;
+        public static final int app_name=0x7f0b002e;
         public static final int auth_client_needs_enabling_title=0x7f0b000e;
         public static final int auth_client_needs_installation_title=0x7f0b000f;
         public static final int auth_client_needs_update_title=0x7f0b0010;
         public static final int auth_client_play_services_err_notification_msg=0x7f0b0011;
         public static final int auth_client_requested_by_msg=0x7f0b0012;
         public static final int auth_client_using_bad_version_title=0x7f0b000d;
-        public static final int button_enter=0x7f0b0035;
-        public static final int button_exit=0x7f0b0036;
+        public static final int button_enter=0x7f0b0036;
+        public static final int button_exit=0x7f0b0037;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -1749,14 +1749,14 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f0b002b;
-        public static final int pref_host=0x7f0b002f;
-        public static final int pref_host_summary=0x7f0b0030;
-        public static final int pref_password=0x7f0b0033;
-        public static final int pref_password_summary=0x7f0b0034;
-        public static final int pref_username=0x7f0b0031;
-        public static final int pref_username_summary=0x7f0b0032;
-        public static final int refresh=0x7f0b0038;
-        public static final int textview_todaysLog=0x7f0b0037;
+        public static final int pref_host=0x7f0b0030;
+        public static final int pref_host_summary=0x7f0b0031;
+        public static final int pref_password=0x7f0b0034;
+        public static final int pref_password_summary=0x7f0b0035;
+        public static final int pref_username=0x7f0b0032;
+        public static final int pref_username_summary=0x7f0b0033;
+        public static final int refresh=0x7f0b0039;
+        public static final int textview_todaysLog=0x7f0b0038;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
