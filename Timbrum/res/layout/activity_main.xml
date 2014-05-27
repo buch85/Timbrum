@@ -1,12 +1,16 @@
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="it.buch85.timbrum.MainActivity"
     tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" >
 
         <LinearLayout
             android:layout_width="90dp"
@@ -42,7 +46,6 @@
                 android:layout_marginTop="-4dp"
                 android:layout_weight="0.2"
                 android:text="@string/button_exit" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -66,14 +69,14 @@
                     android:paddingBottom="2dip"
                     android:paddingLeft="5dip"
                     android:paddingTop="2dip"
-                    android:text="@string/todaysTimbrus"
+                    android:text="@string/textview_todaysLog"
                     android:textAppearance="?android:attr/listSeparatorTextViewStyle"
                     android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/buttonRefresh"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/refresh"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -84,8 +87,15 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" >
             </ListView>
-
         </LinearLayout>
-
     </LinearLayout>
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adMobadView"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/admobid" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

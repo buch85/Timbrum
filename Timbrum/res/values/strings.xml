@@ -9,10 +9,10 @@
     <string name="pref_username_summary">Username used to login to Zucchetti portal</string>
     <string name="pref_password">Password</string>
     <string name="pref_password_summary">Password used to login to Zucchetti portal</string>
-    <string name="button_enter">Entra</string>
-    <string name="button_exit">Esci</string>
-    <string name="textview_timbraturedelgiorno">Timbrature del giorno</string>
-    <string name="todaysTimbrus">Timbrature del giorno</string>
+    <string name="button_enter">Enter</string>
+    <string name="button_exit">Exit</string>
+    <string name="textview_todaysLog">Today\'s\' Log</string>
     <string name="refresh">Refresh</string>
+    <string name="admobid">ca-app-pub-1177088523664187/5689192882</string>
 
 </resources>
