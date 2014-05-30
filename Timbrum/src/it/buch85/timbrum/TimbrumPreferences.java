@@ -26,14 +26,14 @@ public class TimbrumPreferences {
 	}
 
 	private boolean isUsernameValid() {
-		return getUsername()!=null && !getUsername().isEmpty();
+		return getUsername()!=null && !getUsername().equals("");
 	}
 	
 	private boolean isPasswordValid() {
-		return getPassword()!=null && !getPassword().isEmpty();
+		return getPassword()!=null && !getPassword().equals("");
 	}
 
 	private boolean isHostValid() {
-		return getHost()!=null && !getHost().isEmpty();
+		return getHost()!=null && !getHost().equals("");
 	}
 }

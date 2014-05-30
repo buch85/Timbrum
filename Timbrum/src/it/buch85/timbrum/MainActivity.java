@@ -3,23 +3,17 @@ package it.buch85.timbrum;
 import it.buch85.timbrum.request.LoginRequest.LoginResult;
 import it.buch85.timbrum.request.RecordTimbratura;
 import it.buch85.timbrum.request.TimbraturaRequest;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,12 +22,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 	private Button buttonEnter;
 	private Button buttonExit;
@@ -42,11 +35,11 @@ public class MainActivity extends ActionBarActivity {
 	private ToggleButton buttonSafeExit;
 	private ToggleButton buttonSafeEnter;
 	private SafeButtonManager safeButtonManager;
-	ExecutorService executor;
 	private Button buttonRefresh;
 
 	/** The view to show the ad. */
 	private AdView adView;
+	public static MainActivity instance;
 
 	class SafeButtonManager {
 		HashMap<Button, ToggleButton> map = new HashMap<Button, ToggleButton>();
@@ -54,8 +47,7 @@ public class MainActivity extends ActionBarActivity {
 		private void setupSafe(final ToggleButton buttonSafe,
 				final Button button) {
 			button.setEnabled(false);
-			buttonSafe
-					.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			buttonSafe.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 						@Override
 						public void onCheckedChanged(CompoundButton buttonView,
 								boolean isChecked) {
@@ -78,10 +70,10 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		instance=this;
 		setContentView(R.layout.activity_main);
 
 		if (savedInstanceState == null) {
-			executor = Executors.newSingleThreadExecutor();
 			safeButtonManager = new SafeButtonManager();
 			timbrumPreferences = new TimbrumPreferences(
 					PreferenceManager.getDefaultSharedPreferences(this));
@@ -125,18 +117,17 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	protected void refresh() {
-		new TimbrumTask().executeOnExecutor(executor);
+		new TimbrumTask().execute();
 	}
 
 	protected void exit() {
-		new TimbrumTask(TimbraturaRequest.VERSO_USCITA)
-				.executeOnExecutor(executor);
+		new TimbrumTask(TimbraturaRequest.VERSO_USCITA).execute();
 
 	}
 
 	protected void enter() {
 		new TimbrumTask(TimbraturaRequest.VERSO_ENTRATA)
-				.executeOnExecutor(executor);
+				.execute();
 	}
 
 	private void enableDisableButtons() {
@@ -166,7 +157,7 @@ public class MainActivity extends ActionBarActivity {
 	protected void onStart() {
 		super.onStart();
 		if (!paused && timbrumPreferences.arePreferencesValid()) {
-			new TimbrumTask().executeOnExecutor(executor);
+			new TimbrumTask().execute();
 		}
 	}
 
@@ -226,8 +217,8 @@ public class MainActivity extends ActionBarActivity {
 			progressDialog = new ProgressDialog(MainActivity.this);
 			progressDialog.setCancelable(false);
 			progressDialog.setCanceledOnTouchOutside(false);
-			progressDialog.setTitle("Loading");
-			progressDialog.setMessage("Please wait...");
+			progressDialog.setTitle(getString(R.string.loading));
+			progressDialog.setMessage(getString(R.string.please_wait));
 			timbrum = new Timbrum(timbrumPreferences.getHost(),
 					timbrumPreferences.getUsername(),
 					timbrumPreferences.getPassword());
@@ -243,27 +234,27 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		protected ArrayList<RecordTimbratura> doInBackground(String... params) {
 			try {
-				publishProgress("Logging in...");
+				publishProgress(getString(R.string.logging_in));
 				LoginResult loginResult = timbrum.login();
 				if (loginResult.isSuccess()) {
 					if (versoTimbratura != null) {
-						publishProgress("Sto timbrando...");
+						publishProgress(getString(R.string.timbrum_in_progress));
 						timbrum.timbra(versoTimbratura);
 						if (versoTimbratura
 								.equals(TimbraturaRequest.VERSO_ENTRATA)) {
-							publishProgress("Entrato");
+							publishProgress(getString(R.string.entered));
 						} else if (versoTimbratura
 								.equals(TimbraturaRequest.VERSO_ENTRATA)) {
-							publishProgress("Uscito");
+							publishProgress(getString(R.string.exited));
 						}
 					}
-					publishProgress("Caricamento info...");
+					publishProgress(getString(R.string.loading_logs));
 					return timbrum.getReport(new Date());
 				} else {
-					message = "Login Error: " + loginResult.getMessage();
+					message = getString(R.string.login_error)+ loginResult.getMessage();
 				}
 			} catch (Exception e) {
-				message = "Error: " + e.getMessage();
+				message = getString(R.string.error) + e.getMessage();
 			}
 			return null;
 		}
@@ -284,7 +275,7 @@ public class MainActivity extends ActionBarActivity {
 						MainActivity.this, R.layout.row, R.id.textViewList,
 						result));
 			} else {
-				Toast.makeText(MainActivity.this, message, 5).show();
+				Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
 			}
 		}
 

@@ -11,6 +11,17 @@
     <string name="pref_password_summary">Password used to login to Zucchetti portal</string>
     <string name="button_enter">Enter</string>
     <string name="button_exit">Exit</string>
-    <string name="textview_todaysLog">Today\'s\' Log</string>
+    <string name="textview_todaysLog">Today\'s Log</string>
     <string name="refresh">Refresh</string>
+    <string name="logging_in">Logging in...</string>
+    <string name="timbrum_in_progress">Timbrum in progress...</string>
+    <string name="entry">Entry</string>
+    <string name="exit">Exit</string>
+    <string name="entered">Entered</string>
+    <string name="exited">Exited</string>
+    <string name="loading_logs">Loading logs...</string>
+    <string name="login_error">"Login Error: "</string>
+    <string name="error">"Error: "</string>
+    <string name="loading">Loading</string>
+    <string name="please_wait">Please wait...</string>
 </resources>

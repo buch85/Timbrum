@@ -1749,6 +1749,16 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06001e;
+        public static final int entered=0x7f06003e;
+        public static final int entry=0x7f06003c;
+        public static final int error=0x7f060042;
+        public static final int exit=0x7f06003d;
+        public static final int exited=0x7f06003f;
+        public static final int loading=0x7f060043;
+        public static final int loading_logs=0x7f060040;
+        public static final int logging_in=0x7f06003a;
+        public static final int login_error=0x7f060041;
+        public static final int please_wait=0x7f060044;
         public static final int pref_host=0x7f060030;
         public static final int pref_host_summary=0x7f060031;
         public static final int pref_password=0x7f060034;
@@ -1757,6 +1767,7 @@ containing a value of this type.
         public static final int pref_username_summary=0x7f060033;
         public static final int refresh=0x7f060039;
         public static final int textview_todaysLog=0x7f060038;
+        public static final int timbrum_in_progress=0x7f06003b;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
