@@ -1795,13 +1795,13 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
 
-        Base application theme for API 11+. This theme completely replaces
-        AppBaseTheme from res/values/styles.xml on API 11+ devices.
+        Base application theme for API 8+. This theme completely replaces
+        AppBaseTheme from res/values/styles.xml on API 8+ devices.
     
- API 11 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f0a008f;
         /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0a0090;
         /**  Mimic text appearance in select_dialog_item.xml 
