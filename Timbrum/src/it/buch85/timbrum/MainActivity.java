@@ -4,6 +4,7 @@ import it.buch85.timbrum.request.LoginRequest.LoginResult;
 import it.buch85.timbrum.request.RecordTimbratura;
 import it.buch85.timbrum.request.TimbraturaRequest;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import com.google.android.gms.ads.AdRequest;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -39,6 +41,7 @@ public class MainActivity extends Activity {
 
 	/** The view to show the ad. */
 	private AdView adView;
+	private TextView workedText;
 	public static MainActivity instance;
 
 	class SafeButtonManager {
@@ -85,6 +88,7 @@ public class MainActivity extends Activity {
 			buttonSafeEnter = (ToggleButton) findViewById(R.id.button_safe_enter);
 			buttonSafeExit = (ToggleButton) findViewById(R.id.button_safe_exit);
 			listView = (ListView) findViewById(R.id.listView1);
+			workedText=(TextView) findViewById(R.id.textWorked);
 			safeButtonManager.setupSafe(buttonSafeEnter, buttonEnter);
 			safeButtonManager.setupSafe(buttonSafeExit, buttonExit);
 			buttonEnter.setOnClickListener(new OnClickListener() {
@@ -108,10 +112,14 @@ public class MainActivity extends Activity {
 					refresh();
 				}
 			});
-			// Look up the AdView as a resource and load a request.
-		    AdView adView = (AdView)this.findViewById(R.id.adMobadView);
-		    AdRequest adRequest = new AdRequest.Builder().build();
-		    adView.loadAd(adRequest);
+			if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.FROYO) {
+			    // only for gingerbread and newer versions
+			
+				// Look up the AdView as a resource and load a request.
+			    AdView adView = (AdView)this.findViewById(R.id.adMobadView);
+			    AdRequest adRequest = new AdRequest.Builder().build();
+			    adView.loadAd(adRequest);
+			}
 		}
 		enableDisableButtons();
 	}
@@ -274,9 +282,51 @@ public class MainActivity extends Activity {
 				listView.setAdapter(new ArrayAdapter<RecordTimbratura>(
 						MainActivity.this, R.layout.row, R.id.textViewList,
 						result));
+				if(result.size()==0){
+					workedText.setText(getString(R.string.n_a));
+				}else{
+					if(validateRecords(result)){
+						Date now=new Date();
+						Date latestExit=now;
+						if(result.get(result.size()-1).isExit()){
+							latestExit=result.get(result.size()-1).getTimeFor(now);
+						}
+						long worked=latestExit.getTime()-result.get(0).getTimeFor(now).getTime();;
+						for(int i=1;i<result.size();i++){
+							RecordTimbratura recordTimbratura = result.get(i);
+							if(recordTimbratura.getDirection().equals(TimbraturaRequest.VERSO_ENTRATA)){
+								RecordTimbratura prev= result.get(i-1);
+								long pausa= recordTimbratura.getTimeFor(now).getTime()-prev.getTimeFor(now).getTime();
+								worked-=pausa;
+							}
+						}
+						workedText.setText(formatTime(worked));
+					}else{
+						workedText.setText(getString(R.string.n_a));
+					}
+				}
 			} else {
 				Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
 			}
+		}
+		
+		private String formatTime(long millis){
+			long minute = (millis / (1000 * 60)) % 60;
+			long hour = (millis / (1000 * 60 * 60)) % 24;
+
+			String time = String.format("%02d:%02d", hour, minute);
+			return time;
+		}
+
+		private boolean validateRecords(ArrayList<RecordTimbratura> result) {
+			String check=TimbraturaRequest.VERSO_ENTRATA;
+			for(RecordTimbratura record:result){
+				if(!check.equals(record.getDirection())){
+					return false;
+				}
+				check=check==TimbraturaRequest.VERSO_ENTRATA?TimbraturaRequest.VERSO_USCITA:TimbraturaRequest.VERSO_ENTRATA;
+			}
+			return true;
 		}
 
 		@Override
