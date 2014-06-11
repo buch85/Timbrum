@@ -1,6 +1,7 @@
-package it.buch85.timbrum;
+package it.buch85.timbrum.prefs;
 
-import android.app.Activity;
+import it.buch85.timbrum.R;
+import it.buch85.timbrum.R.xml;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 

@@ -28,7 +28,7 @@ public class LoginRequest extends AbstractRequest {
     private static String ACTION_FIELD = "m_cAction";
     private static String ACTION_FIELD_VALUE = "login";
 
-    private static String REDIRECT_OK_URL = "https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp";
+    private static String REDIRECT_OK_URL = "/servlet/../../hrpergon/servlet/../jsp/home.jsp";
 
     public LoginRequest(HttpClient httpclient, HttpContext context) {
         super(httpclient, context);
@@ -55,7 +55,7 @@ public class LoginRequest extends AbstractRequest {
         String message="";
         if (response.getStatusLine().getStatusCode() == 302) {
             Header[] location = response.getHeaders("Location");
-            if (location.length > 0 && REDIRECT_OK_URL.equals(location[0].getValue())) {
+            if (location.length > 0 && location[0].getValue().endsWith(REDIRECT_OK_URL)) {
                 return new LoginResult(true,message);
             }
         } else {

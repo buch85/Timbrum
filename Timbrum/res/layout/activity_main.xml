@@ -38,7 +38,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/TextView01"
+            android:id="@+id/textRemainingLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/TextView01"
+            android:layout_below="@+id/textRemainingLabel"
             android:text="@string/n_a"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
@@ -113,13 +113,15 @@
         app:adUnitId="@string/admobid" >
     </com.google.android.gms.ads.AdView>
 
-    <SeekBar
+    <it.buch85.timbrum.NoTapSeekBar
         android:id="@+id/seekBar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/adMobadView"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:max="100"
         android:mirrorForRtl="false"
         android:progress="50"

@@ -1,4 +1,4 @@
-package it.buch85.timbrum;
+package it.buch85.timbrum.prefs;
 
 import android.content.SharedPreferences;
 
@@ -35,5 +35,9 @@ public class TimbrumPreferences {
 
 	private boolean isHostValid() {
 		return getHost()!=null && !getHost().equals("");
+	}
+
+	public long getTimeToWork() {
+		return sharedPrefs.getLong("pref_worktime", 28800000);
 	}
 }

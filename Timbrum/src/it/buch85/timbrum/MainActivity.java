@@ -1,13 +1,14 @@
 package it.buch85.timbrum;
 
+import it.buch85.timbrum.prefs.SettingsActivity;
+import it.buch85.timbrum.prefs.TimbrumPreferences;
 import it.buch85.timbrum.request.LoginRequest.LoginResult;
 import it.buch85.timbrum.request.RecordTimbratura;
 import it.buch85.timbrum.request.TimbraturaRequest;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Locale;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -24,14 +25,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
 
@@ -43,6 +41,7 @@ public class MainActivity extends Activity {
 	private AdView adView;
 	private TextView workedText;
 	private TextView remainingText;
+	private TextView remainingLabel;
 	private SeekBar seekBar;
 	public static MainActivity instance;
 
@@ -62,17 +61,16 @@ public class MainActivity extends Activity {
 			buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
 			listView = (ListView) findViewById(R.id.listView1);
 			workedText=(TextView) findViewById(R.id.textWorked);
-			//remainingText =(TextView)findViewById(R.id.)
+			remainingText =(TextView)findViewById(R.id.textRemaining);
+			remainingLabel =(TextView)findViewById(R.id.textRemainingLabel);
 			seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 				
 				@Override
 				public void onStopTrackingTouch(SeekBar seekBar) {
 					int progress=seekBar.getProgress();
 					if(progress==0){
-						Toast.makeText(MainActivity.this,"enter", Toast.LENGTH_LONG).show();
 						enter();
 					}else if(progress==seekBar.getMax()){
-						Toast.makeText(MainActivity.this,"exit", Toast.LENGTH_LONG).show();
 						exit();
 					}
 					seekBar.setProgress(seekBar.getMax()/2);
@@ -80,15 +78,10 @@ public class MainActivity extends Activity {
 				
 				@Override
 				public void onStartTrackingTouch(SeekBar seekBar) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
-				public void onProgressChanged(SeekBar seekBar, int progress,
-						boolean fromUser) {
-					
-					
+				public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
 				}
 			});
 
@@ -192,7 +185,14 @@ public class MainActivity extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 	}
+	public static String formatTime(long millis){
+		long minute = (millis / (1000 * 60)) % 60;
+		long hour = (millis / (1000 * 60 * 60)) % 24;
 
+		String time = String.format(Locale.ENGLISH,"%02d:%02d", hour, minute);
+		return time;
+	}
+	
 	private final class TimbrumTask extends
 			AsyncTask<String, String, ArrayList<RecordTimbratura>> {
 		String versoTimbratura = null;
@@ -263,12 +263,14 @@ public class MainActivity extends Activity {
 		@Override
 		protected void onPostExecute(ArrayList<RecordTimbratura> result) {
 			progressDialog.dismiss();
+			remainingLabel.setText(getString(R.string.remaining));
 			if (result != null) {
 				listView.setAdapter(new ArrayAdapter<RecordTimbratura>(
 						MainActivity.this, R.layout.row, R.id.textViewList,
 						result));
 				if(result.size()==0){
 					workedText.setText(getString(R.string.n_a));
+					remainingText.setText(getString(R.string.n_a));
 				}else{
 					if(validateRecords(result)){
 						Date now=new Date();
@@ -285,10 +287,18 @@ public class MainActivity extends Activity {
 								worked-=pausa;
 							}
 						}
+						long millisToWorkADay=timbrumPreferences.getTimeToWork();
 						workedText.setText(formatTime(worked));
-						
+						long remaining = millisToWorkADay-worked;
+						if( remaining<0){
+							remainingLabel.setText(getString(R.string.exceeding));
+							remainingText.setText(formatTime(-remaining));
+						}else{
+							remainingText.setText(formatTime(remaining));
+						}
 					}else{
 						workedText.setText(getString(R.string.n_a));
+						remainingText.setText(getString(R.string.n_a));
 					}
 				}
 			} else {
@@ -296,14 +306,6 @@ public class MainActivity extends Activity {
 			}
 		}
 		
-		private String formatTime(long millis){
-			long minute = (millis / (1000 * 60)) % 60;
-			long hour = (millis / (1000 * 60 * 60)) % 24;
-
-			String time = String.format("%02d:%02d", hour, minute);
-			return time;
-		}
-
 		private boolean validateRecords(ArrayList<RecordTimbratura> result) {
 			String check=TimbraturaRequest.VERSO_ENTRATA;
 			for(RecordTimbratura record:result){

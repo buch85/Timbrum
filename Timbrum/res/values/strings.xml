@@ -9,6 +9,8 @@
     <string name="pref_username_summary">Username used to login to Zucchetti portal</string>
     <string name="pref_password">Password</string>
     <string name="pref_password_summary">Password used to login to Zucchetti portal</string>
+    <string name="pref_worktime">Time to work</string>
+    <string name="pref_worktime_summary">Usual work hours and minutes</string>
     <string name="button_enter">Enter</string>
     <string name="button_exit">Exit</string>
     <string name="textview_todaysLog">Today\'s Log</string>
@@ -27,4 +29,5 @@
     <string name="worked">Worked</string>
     <string name="n_a">N/A</string>
     <string name="remaining">Remaining</string>
+    <string name="exceeding">Exceeding</string>
 </resources>

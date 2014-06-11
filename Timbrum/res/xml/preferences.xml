@@ -17,5 +17,10 @@
         android:summary="@string/pref_password_summary"
         android:inputType="textPassword"
     />
-    
+    <it.buch85.timbrum.prefs.TimePreference
+        android:key="pref_worktime"
+        android:title="@string/pref_worktime"
+        android:summary="@string/pref_worktime_summary"
+		android:defaultValue="28800000"
+		 />
 </PreferenceScreen>
