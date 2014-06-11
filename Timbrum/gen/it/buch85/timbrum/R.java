@@ -1362,8 +1362,10 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f020073;
         public static final int powered_by_google_dark=0x7f020074;
         public static final int powered_by_google_light=0x7f020075;
+        public static final int seekbar_progress=0x7f020076;
     }
     public static final class id {
+        public static final int TextView01=0x7f080052;
         public static final int action_bar=0x7f08002e;
         public static final int action_bar_activity_content=0x7f080027;
         public static final int action_bar_container=0x7f08002d;
@@ -1375,17 +1377,13 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f080028;
         public static final int action_menu_presenter=0x7f080029;
         public static final int action_mode_close_button=0x7f080036;
-        public static final int action_settings=0x7f08005b;
+        public static final int action_settings=0x7f08005d;
         public static final int activity_chooser_view_content=0x7f080037;
         public static final int adMobadView=0x7f080059;
         public static final int always=0x7f08001e;
         public static final int beginning=0x7f080023;
         public static final int book_now=0x7f080010;
-        public static final int buttonRefresh=0x7f080054;
-        public static final int button_enter=0x7f080050;
-        public static final int button_exit=0x7f080052;
-        public static final int button_safe_enter=0x7f08004f;
-        public static final int button_safe_exit=0x7f080051;
+        public static final int buttonRefresh=0x7f080056;
         public static final int buyButton=0x7f08000a;
         public static final int buy_now=0x7f08000f;
         public static final int buy_with_google=0x7f08000e;
@@ -1410,8 +1408,9 @@ containing a value of this type.
         public static final int icon=0x7f08003c;
         public static final int ifRoom=0x7f08001d;
         public static final int image=0x7f080039;
+        public static final int listLayout=0x7f080054;
         public static final int listMode=0x7f080014;
-        public static final int listView1=0x7f080055;
+        public static final int listView1=0x7f080058;
         public static final int list_item=0x7f08003b;
         public static final int match_parent=0x7f08000c;
         public static final int middle=0x7f080024;
@@ -1435,6 +1434,7 @@ containing a value of this type.
         public static final int search_plate=0x7f080048;
         public static final int search_src_text=0x7f080049;
         public static final int search_voice_btn=0x7f08004d;
+        public static final int seekBar1=0x7f08005a;
         public static final int selectionDetails=0x7f08000b;
         public static final int shortcut=0x7f080040;
         public static final int showCustom=0x7f08001a;
@@ -1443,17 +1443,20 @@ containing a value of this type.
         public static final int split_action_bar=0x7f080030;
         public static final int strict_sandbox=0x7f080009;
         public static final int submit_area=0x7f08004b;
+        public static final int summaryLayout=0x7f08004f;
         public static final int tabMode=0x7f080015;
         public static final int terrain=0x7f080003;
-        public static final int textView1=0x7f080053;
-        public static final int textView2=0x7f080057;
-        public static final int textViewList=0x7f08005a;
-        public static final int textWorked=0x7f080058;
+        public static final int textRemaining=0x7f080053;
+        public static final int textView1=0x7f080057;
+        public static final int textView2=0x7f080050;
+        public static final int textView3=0x7f08005b;
+        public static final int textView4=0x7f080055;
+        public static final int textViewList=0x7f08005c;
+        public static final int textWorked=0x7f080051;
         public static final int title=0x7f08003d;
         public static final int top_action_bar=0x7f080032;
         public static final int up=0x7f080033;
         public static final int useLogo=0x7f080016;
-        public static final int view1=0x7f080056;
         public static final int withText=0x7f08001f;
         public static final int wrap_content=0x7f08000d;
     }
@@ -1673,6 +1676,7 @@ containing a value of this type.
         public static final int pref_username=0x7f060032;
         public static final int pref_username_summary=0x7f060033;
         public static final int refresh=0x7f060039;
+        public static final int remaining=0x7f060047;
         public static final int textview_todaysLog=0x7f060038;
         public static final int timbrum_in_progress=0x7f06003b;
         /**  Text on a placeholder buy button when Google Play services is not

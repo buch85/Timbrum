@@ -3,12 +3,15 @@ package it.buch85.timbrum;
 import it.buch85.timbrum.request.LoginRequest.LoginResult;
 import it.buch85.timbrum.request.RecordTimbratura;
 import it.buch85.timbrum.request.TimbraturaRequest;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,51 +27,25 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
 
-	private Button buttonEnter;
-	private Button buttonExit;
 	private TimbrumPreferences timbrumPreferences;
 	private ListView listView;
-	private ToggleButton buttonSafeExit;
-	private ToggleButton buttonSafeEnter;
-	private SafeButtonManager safeButtonManager;
 	private Button buttonRefresh;
 
 	/** The view to show the ad. */
 	private AdView adView;
 	private TextView workedText;
+	private TextView remainingText;
+	private SeekBar seekBar;
 	public static MainActivity instance;
 
-	class SafeButtonManager {
-		HashMap<Button, ToggleButton> map = new HashMap<Button, ToggleButton>();
-
-		private void setupSafe(final ToggleButton buttonSafe,
-				final Button button) {
-			button.setEnabled(false);
-			buttonSafe.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-						@Override
-						public void onCheckedChanged(CompoundButton buttonView,
-								boolean isChecked) {
-							button.setEnabled(isChecked);
-						}
-					});
-			map.put(button, buttonSafe);
-		}
-
-		private void resetSafe(final Button button) {
-			button.setEnabled(false);
-			ToggleButton toggleButton = map.get(button);
-			if (toggleButton != null) {
-				toggleButton.setChecked(false);
-			}
-		}
-
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,32 +54,41 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		if (savedInstanceState == null) {
-			safeButtonManager = new SafeButtonManager();
 			timbrumPreferences = new TimbrumPreferences(
 					PreferenceManager.getDefaultSharedPreferences(this));
 			// getSupportFragmentManager().beginTransaction().add(R.id.container,
 			// new PlaceholderFragment()).commit();
+			seekBar=(SeekBar)findViewById(R.id.seekBar1);
 			buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
-			buttonEnter = (Button) findViewById(R.id.button_enter);
-			buttonExit = (Button) findViewById(R.id.button_exit);
-			buttonSafeEnter = (ToggleButton) findViewById(R.id.button_safe_enter);
-			buttonSafeExit = (ToggleButton) findViewById(R.id.button_safe_exit);
 			listView = (ListView) findViewById(R.id.listView1);
 			workedText=(TextView) findViewById(R.id.textWorked);
-			safeButtonManager.setupSafe(buttonSafeEnter, buttonEnter);
-			safeButtonManager.setupSafe(buttonSafeExit, buttonExit);
-			buttonEnter.setOnClickListener(new OnClickListener() {
+			//remainingText =(TextView)findViewById(R.id.)
+			seekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+				
 				@Override
-				public void onClick(View v) {
-					safeButtonManager.resetSafe(buttonEnter);
-					enter();
+				public void onStopTrackingTouch(SeekBar seekBar) {
+					int progress=seekBar.getProgress();
+					if(progress==0){
+						Toast.makeText(MainActivity.this,"enter", Toast.LENGTH_LONG).show();
+						enter();
+					}else if(progress==seekBar.getMax()){
+						Toast.makeText(MainActivity.this,"exit", Toast.LENGTH_LONG).show();
+						exit();
+					}
+					seekBar.setProgress(seekBar.getMax()/2);
 				}
-			});
-			buttonExit.setOnClickListener(new OnClickListener() {
+				
 				@Override
-				public void onClick(View v) {
-					safeButtonManager.resetSafe(buttonExit);
-					exit();
+				public void onStartTrackingTouch(SeekBar seekBar) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onProgressChanged(SeekBar seekBar, int progress,
+						boolean fromUser) {
+					
+					
 				}
 			});
 
@@ -141,8 +127,7 @@ public class MainActivity extends Activity {
 	private void enableDisableButtons() {
 		boolean arePreferencesValid = timbrumPreferences.arePreferencesValid();
 		buttonRefresh.setEnabled(arePreferencesValid);
-		buttonSafeEnter.setEnabled(arePreferencesValid);
-		buttonSafeExit.setEnabled(arePreferencesValid);
+		seekBar.setEnabled(arePreferencesValid);
 	}
 
 	@Override
@@ -301,6 +286,7 @@ public class MainActivity extends Activity {
 							}
 						}
 						workedText.setText(formatTime(worked));
+						
 					}else{
 						workedText.setText(getString(R.string.n_a));
 					}
