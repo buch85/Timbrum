@@ -7,6 +7,7 @@ import it.buch85.timbrum.request.RecordTimbratura;
 import it.buch85.timbrum.request.TimbraturaRequest;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -69,9 +70,9 @@ public class MainActivity extends Activity {
 				public void onStopTrackingTouch(SeekBar seekBar) {
 					int progress=seekBar.getProgress();
 					if(progress==0){
-						enter();
-					}else if(progress==seekBar.getMax()){
 						exit();
+					}else if(progress==seekBar.getMax()){
+						enter();
 					}
 					seekBar.setProgress(seekBar.getMax()/2);
 				}
@@ -186,8 +187,8 @@ public class MainActivity extends Activity {
 		super.onBackPressed();
 	}
 	public static String formatTime(long millis){
-		long minute = (millis / (1000 * 60)) % 60;
-		long hour = (millis / (1000 * 60 * 60)) % 24;
+		long minute = (long) ((millis / (1000d * 60)) % 60);
+		long hour = (long) ((millis / (1000d * 60 * 60)) % 24);
 
 		String time = String.format(Locale.ENGLISH,"%02d:%02d", hour, minute);
 		return time;
@@ -273,7 +274,10 @@ public class MainActivity extends Activity {
 					remainingText.setText(getString(R.string.n_a));
 				}else{
 					if(validateRecords(result)){
-						Date now=new Date();
+						Calendar c= Calendar.getInstance();
+						c.setTime(new Date());
+						c.set(Calendar.SECOND, 0);
+						Date now=c.getTime();
 						Date latestExit=now;
 						if(result.get(result.size()-1).isExit()){
 							latestExit=result.get(result.size()-1).getTimeFor(now);
