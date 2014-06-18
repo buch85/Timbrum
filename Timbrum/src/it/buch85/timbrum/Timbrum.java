@@ -15,7 +15,6 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 
-import android.net.http.AndroidHttpClient;
 
 /**
  * Created by mbacer on 23/04/14.
@@ -61,9 +60,9 @@ public class Timbrum {
         TimbraturaRequest timbratura = new TimbraturaRequest(new DefaultHttpClient(),context);
         timbratura.setUrl(host+TIMBRUS_URL);
         if (TimbraturaRequest.VERSO_ENTRATA.equals(verso)) {
-            timbratura.entrata();
+           timbratura.entrata();
         } else {
-            timbratura.uscita();
+           timbratura.uscita();
         }
     }
 
