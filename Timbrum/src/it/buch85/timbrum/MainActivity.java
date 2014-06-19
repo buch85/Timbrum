@@ -297,7 +297,7 @@ public class MainActivity extends Activity {
 		protected void onPostExecute(ArrayList<RecordTimbratura> result) {
 			progressDialog.dismiss();
 			remainingLabel.setText(getString(R.string.remaining));
-			if (result != null) {
+			if (result == null) {
 				Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
 				return;
 			}
@@ -305,11 +305,11 @@ public class MainActivity extends Activity {
 		}
 
 		private void updateView(ArrayList<RecordTimbratura> result) {
-			listView.setAdapter(new ArrayAdapter<RecordTimbratura>(MainActivity.this, R.layout.row, R.id.textViewList, result));
 			if (result.size() == 0) {
 				workedText.setText(getString(R.string.n_a));
 				remainingText.setText(getString(R.string.n_a));
 			} else {
+				listView.setAdapter(new ArrayAdapter<RecordTimbratura>(MainActivity.this, R.layout.row, R.id.textViewList, result));
 				if (validateRecords(result)) {
 					Date now = now();
 					Date latestExit = now;
