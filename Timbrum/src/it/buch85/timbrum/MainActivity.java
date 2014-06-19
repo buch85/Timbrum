@@ -252,6 +252,8 @@ public class MainActivity extends Activity {
 						if(isConfirmed){
 							publishProgress(getString(R.string.timbrum_in_progress));
 							timbrum.timbra(versoTimbratura);
+						}else{
+							return report;
 						}
 					}
 					publishProgress(getString(R.string.loading_logs));
