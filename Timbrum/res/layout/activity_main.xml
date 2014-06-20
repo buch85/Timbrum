@@ -118,29 +118,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/adMobadView"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginBottom="50dp"
+        android:layout_toLeftOf="@+id/textView3"
+        android:layout_toRightOf="@+id/textView4"
         android:max="100"
         android:mirrorForRtl="false"
         android:progress="50"
         android:progressDrawable="@drawable/seekbar_progress" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/seekBar1"
-        android:layout_alignLeft="@+id/seekBar1"
-        android:text="@string/button_exit" />
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/seekBar1"
+        android:layout_alignBottom="@+id/seekBar1"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/listLayout"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
         android:text="@string/button_enter" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seekBar1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/seekBar1"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="@string/button_exit" />
 
 </RelativeLayout>

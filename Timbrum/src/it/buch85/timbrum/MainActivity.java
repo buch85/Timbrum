@@ -280,8 +280,12 @@ public class MainActivity extends Activity {
 		}
 
 		private boolean doubleTimbrum(ArrayList<RecordTimbratura> report) {
-			RecordTimbratura recordTimbratura = report.get(report.size()-1);
-			return recordTimbratura.getDirection().equals(versoTimbratura);
+			if(report.isEmpty()){
+				return false;
+			}else{
+				RecordTimbratura recordTimbratura = report.get(report.size()-1);
+				return recordTimbratura.getDirection().equals(versoTimbratura);
+			}
 		}
 
 		private boolean exitAsFirstTimbrum(ArrayList<RecordTimbratura> report) {
