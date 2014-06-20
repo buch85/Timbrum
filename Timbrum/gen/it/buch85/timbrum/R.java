@@ -16,6 +16,11 @@ public final class R {
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
     }
+    public static final class array {
+        public static final int snooze_dismiss_descriptions=0x7f0d0001;
+        public static final int snooze_dismiss_direction_descriptions=0x7f0d0002;
+        public static final int snooze_dismiss_drawables=0x7f0d0000;
+    }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -239,6 +244,15 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int adUnitId=0x7f010002;
+        /**  Used when the handle shouldn't wait to be hit before following the finger 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int alwaysTrackFinger=0x7f01009a;
         /**  Specifies a background drawable for the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -385,6 +399,11 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int customNavigationLayout=0x7f010052;
+        /**  Reference to an array resource that be used to announce the directions with targets around the circle. 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int directionDescriptions=0x7f010090;
         /**  Whether this spinner should mark child views as enabled/disabled when
              the spinner itself is enabled/disabled. 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -476,6 +495,15 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int expandActivityOverflowButtonDrawable=0x7f01008b;
+        /**  Number of waves/chevrons to show in animation. 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int feedbackCount=0x7f010099;
         /**  Fragment mode 
          <p>Must be one of the following constant values.</p>
 <table>
@@ -493,6 +521,26 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int fragmentStyle=0x7f010013;
+        /**  Size of target radius. Points within this distance of target center is a "hit". 
+
+        <attr name="hitRadius" format="dimension"/>
+        
+ Radius of glow under finger. 
+         <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int glowRadius=0x7f010096;
+        /**  Sets a drawable as the center. 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int handleDrawable=0x7f010091;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -542,6 +590,17 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int initialActivityCount=0x7f01008a;
+        /**  Inner radius of glow area. 
+         <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int innerRadius=0x7f010094;
         /**  Specifies whether the theme is light, otherwise it is dark. 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
@@ -563,6 +622,35 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int itemPadding=0x7f010057;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int jewelColor=0x7f01009d;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int jewelOffset=0x7f01009c;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int jewelRadius=0x7f01009b;
         /**  Drawable used as a background for selected list items. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -710,6 +798,22 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 </table>
          */
         public static final int navigationMode=0x7f010047;
+        /**  Outer radius of glow area. Target icons will be drawn on this circle. 
+         <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int outerRadius=0x7f010095;
+        /**  Drawable to use for wave ripple animation. 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int outerRingDrawable=0x7f010092;
         /**  Sets the padding, in pixels, of the end edge; see {@link android.R.attr#padding}. 
          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
@@ -748,6 +852,11 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int panelMenuListWidth=0x7f01006a;
+        /**  Drawble used for drawing points 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int pointDrawable=0x7f010093;
         /**  Default PopupMenu style. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -896,6 +1005,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 </table>
          */
         public static final int showDividers=0x7f010075;
+        /**  How close we need to be before snapping to a target. 
+         <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int snapMargin=0x7f010098;
         /**  Default Spinner style. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -933,6 +1053,16 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int subtitleTextStyle=0x7f01004b;
+        /**  Reference to an array resource that be used as description for the targets around the circle. 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int targetDescriptions=0x7f01008f;
+        /**  Reference to an array resource that be shown as targets around a circle. 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int targetDrawables=0x7f01008e;
         /**  Present the text in ALL CAPS. This may use a small-caps form when available. 
          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -1057,6 +1187,15 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int useViewLifecycle=0x7f01000f;
+        /**  Tactile feedback duration for actions. Set to '0' for no vibration. 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int vibrationDuration=0x7f010097;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -1338,6 +1477,23 @@ containing a value of this type.
          (the screen is in portrait). This may be either a fraction or a dimension.
          */
         public static final int dialog_fixed_width_minor=0x7f0c0012;
+        /**  Default glow radius for GlowPadView 
+         */
+        public static final int glowpadview_glow_radius=0x7f0c0019;
+        /**  Default distance from each snap target that GlowPadView considers a "hit" 
+         */
+        public static final int glowpadview_inner_radius=0x7f0c001b;
+        public static final int glowpadview_margin_bottom=0x7f0c001c;
+        public static final int glowpadview_margin_right=0x7f0c001d;
+        /**  Size of alarm alert outer ring. 
+         */
+        public static final int glowpadview_outerring_diameter=0x7f0c0017;
+        /**  Default distance beyond which GlowPadView snaps to the matching target 
+         */
+        public static final int glowpadview_snap_margin=0x7f0c001a;
+        /**  Default target placement radius for GlowPadView. Should be 1/2 of outerring diameter. 
+         */
+        public static final int glowpadview_target_placement_radius=0x7f0c0018;
     }
     public static final class drawable {
         public static final int abc_ab_bottom_solid_dark_holo=0x7f020000;
@@ -1451,14 +1607,26 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f02006c;
         public static final int common_signin_btn_text_pressed_dark=0x7f02006d;
         public static final int common_signin_btn_text_pressed_light=0x7f02006e;
-        public static final int ic_launcher=0x7f02006f;
-        public static final int ic_plusone_medium_off_client=0x7f020070;
-        public static final int ic_plusone_small_off_client=0x7f020071;
-        public static final int ic_plusone_standard_off_client=0x7f020072;
-        public static final int ic_plusone_tall_off_client=0x7f020073;
-        public static final int powered_by_google_dark=0x7f020074;
-        public static final int powered_by_google_light=0x7f020075;
-        public static final int seekbar_progress=0x7f020076;
+        public static final int ic_alarm_alert_outerring=0x7f02006f;
+        public static final int ic_alarm_alert_touch_handle=0x7f020070;
+        public static final int ic_item_camera=0x7f020071;
+        public static final int ic_item_google=0x7f020072;
+        public static final int ic_launcher=0x7f020073;
+        public static final int ic_lockscreen_camera_activated=0x7f020074;
+        public static final int ic_lockscreen_camera_normal=0x7f020075;
+        public static final int ic_lockscreen_glowdot=0x7f020076;
+        public static final int ic_lockscreen_google_activated=0x7f020077;
+        public static final int ic_lockscreen_google_focused=0x7f020078;
+        public static final int ic_lockscreen_google_normal=0x7f020079;
+        public static final int ic_lockscreen_handle_normal=0x7f02007a;
+        public static final int ic_lockscreen_handle_pressed=0x7f02007b;
+        public static final int ic_plusone_medium_off_client=0x7f02007c;
+        public static final int ic_plusone_small_off_client=0x7f02007d;
+        public static final int ic_plusone_standard_off_client=0x7f02007e;
+        public static final int ic_plusone_tall_off_client=0x7f02007f;
+        public static final int powered_by_google_dark=0x7f020080;
+        public static final int powered_by_google_light=0x7f020081;
+        public static final int seekbar_progress=0x7f020082;
     }
     public static final class id {
         public static final int action_bar=0x7f08002e;
@@ -1472,7 +1640,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f080028;
         public static final int action_menu_presenter=0x7f080029;
         public static final int action_mode_close_button=0x7f080036;
-        public static final int action_settings=0x7f08005d;
+        public static final int action_settings=0x7f08005f;
         public static final int activity_chooser_view_content=0x7f080037;
         public static final int adMobadView=0x7f080059;
         public static final int always=0x7f08001e;
@@ -1486,6 +1654,7 @@ containing a value of this type.
         public static final int classic=0x7f080011;
         public static final int collapseActionView=0x7f080020;
         public static final int container=0x7f08004e;
+        public static final int container_asdasa=0x7f08005c;
         public static final int default_activity_button=0x7f08003a;
         public static final int dialog=0x7f080021;
         public static final int disableHome=0x7f08001b;
@@ -1494,6 +1663,7 @@ containing a value of this type.
         public static final int end=0x7f080025;
         public static final int expand_activities_button=0x7f080038;
         public static final int expanded_menu=0x7f08003e;
+        public static final int glow_pad_view=0x7f08005d;
         public static final int grayscale=0x7f080012;
         public static final int holo_dark=0x7f080005;
         public static final int holo_light=0x7f080006;
@@ -1547,7 +1717,7 @@ containing a value of this type.
         public static final int textView2=0x7f080050;
         public static final int textView3=0x7f08005b;
         public static final int textView4=0x7f080055;
-        public static final int textViewList=0x7f08005c;
+        public static final int textViewList=0x7f08005e;
         public static final int textWorked=0x7f080051;
         public static final int title=0x7f08003d;
         public static final int top_action_bar=0x7f080032;
@@ -1608,11 +1778,12 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
-        public static final int row=0x7f030019;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001a;
+        public static final int activity_test=0x7f030019;
+        public static final int row=0x7f03001a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
     }
     public static final class menu {
-        public static final int main=0x7f0d0000;
+        public static final int main=0x7f0e0000;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -2798,6 +2969,70 @@ containing a value of this type.
           @attr name it.buch85.timbrum:adUnitId
         */
         public static final int AdsAttrs_adUnitId = 2;
+        /** Attributes that can be used with a AnalogClock.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AnalogClock_jewelColor it.buch85.timbrum:jewelColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #AnalogClock_jewelOffset it.buch85.timbrum:jewelOffset}</code></td><td></td></tr>
+           <tr><td><code>{@link #AnalogClock_jewelRadius it.buch85.timbrum:jewelRadius}</code></td><td></td></tr>
+           </table>
+           @see #AnalogClock_jewelColor
+           @see #AnalogClock_jewelOffset
+           @see #AnalogClock_jewelRadius
+         */
+        public static final int[] AnalogClock = {
+            0x7f01009b, 0x7f01009c, 0x7f01009d
+        };
+        /**
+          <p>This symbol is the offset where the {@link it.buch85.timbrum.R.attr#jewelColor}
+          attribute's value can be found in the {@link #AnalogClock} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name it.buch85.timbrum:jewelColor
+        */
+        public static final int AnalogClock_jewelColor = 2;
+        /**
+          <p>This symbol is the offset where the {@link it.buch85.timbrum.R.attr#jewelOffset}
+          attribute's value can be found in the {@link #AnalogClock} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name it.buch85.timbrum:jewelOffset
+        */
+        public static final int AnalogClock_jewelOffset = 1;
+        /**
+          <p>This symbol is the offset where the {@link it.buch85.timbrum.R.attr#jewelRadius}
+          attribute's value can be found in the {@link #AnalogClock} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name it.buch85.timbrum:jewelRadius
+        */
+        public static final int AnalogClock_jewelRadius = 0;
         /** Attributes that can be used with a CompatTextView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2824,6 +3059,250 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           @attr name it.buch85.timbrum:textAllCaps
         */
         public static final int CompatTextView_textAllCaps = 0;
+        /** Attributes that can be used with a GlowPadView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #GlowPadView_alwaysTrackFinger it.buch85.timbrum:alwaysTrackFinger}</code></td><td> Used when the handle shouldn't wait to be hit before following the finger </td></tr>
+           <tr><td><code>{@link #GlowPadView_android_gravity android:gravity}</code></td><td></td></tr>
+           <tr><td><code>{@link #GlowPadView_directionDescriptions it.buch85.timbrum:directionDescriptions}</code></td><td> Reference to an array resource that be used to announce the directions with targets around the circle.</td></tr>
+           <tr><td><code>{@link #GlowPadView_feedbackCount it.buch85.timbrum:feedbackCount}</code></td><td> Number of waves/chevrons to show in animation.</td></tr>
+           <tr><td><code>{@link #GlowPadView_glowRadius it.buch85.timbrum:glowRadius}</code></td><td> Size of target radius.</td></tr>
+           <tr><td><code>{@link #GlowPadView_handleDrawable it.buch85.timbrum:handleDrawable}</code></td><td> Sets a drawable as the center.</td></tr>
+           <tr><td><code>{@link #GlowPadView_innerRadius it.buch85.timbrum:innerRadius}</code></td><td> Inner radius of glow area.</td></tr>
+           <tr><td><code>{@link #GlowPadView_outerRadius it.buch85.timbrum:outerRadius}</code></td><td> Outer radius of glow area.</td></tr>
+           <tr><td><code>{@link #GlowPadView_outerRingDrawable it.buch85.timbrum:outerRingDrawable}</code></td><td> Drawable to use for wave ripple animation.</td></tr>
+           <tr><td><code>{@link #GlowPadView_pointDrawable it.buch85.timbrum:pointDrawable}</code></td><td> Drawble used for drawing points </td></tr>
+           <tr><td><code>{@link #GlowPadView_snapMargin it.buch85.timbrum:snapMargin}</code></td><td> How close we need to be before snapping to a target.</td></tr>
+           <tr><td><code>{@link #GlowPadView_targetDescriptions it.buch85.timbrum:targetDescriptions}</code></td><td> Reference to an array resource that be used as description for the targets around the circle.</td></tr>
+           <tr><td><code>{@link #GlowPadView_targetDrawables it.buch85.timbrum:targetDrawables}</code></td><td> Reference to an array resource that be shown as targets around a circle.</td></tr>
+           <tr><td><code>{@link #GlowPadView_vibrationDuration it.buch85.timbrum:vibrationDuration}</code></td><td> Tactile feedback duration for actions.</td></tr>
+           </table>
+           @see #GlowPadView_alwaysTrackFinger
+           @see #GlowPadView_android_gravity
+           @see #GlowPadView_directionDescriptions
+           @see #GlowPadView_feedbackCount
+           @see #GlowPadView_glowRadius
+           @see #GlowPadView_handleDrawable
+           @see #GlowPadView_innerRadius
+           @see #GlowPadView_outerRadius
+           @see #GlowPadView_outerRingDrawable
+           @see #GlowPadView_pointDrawable
+           @see #GlowPadView_snapMargin
+           @see #GlowPadView_targetDescriptions
+           @see #GlowPadView_targetDrawables
+           @see #GlowPadView_vibrationDuration
+         */
+        public static final int[] GlowPadView = {
+            0x010100af, 0x7f01008e, 0x7f01008f, 0x7f010090,
+            0x7f010091, 0x7f010092, 0x7f010093, 0x7f010094,
+            0x7f010095, 0x7f010096, 0x7f010097, 0x7f010098,
+            0x7f010099, 0x7f01009a
+        };
+        /**
+          <p>
+          @attr description
+           Used when the handle shouldn't wait to be hit before following the finger 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:alwaysTrackFinger
+        */
+        public static final int GlowPadView_alwaysTrackFinger = 13;
+        /**
+          <p>This symbol is the offset where the {@link android.R.attr#gravity}
+          attribute's value can be found in the {@link #GlowPadView} array.
+          @attr name android:gravity
+        */
+        public static final int GlowPadView_android_gravity = 0;
+        /**
+          <p>
+          @attr description
+           Reference to an array resource that be used to announce the directions with targets around the circle. 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:directionDescriptions
+        */
+        public static final int GlowPadView_directionDescriptions = 3;
+        /**
+          <p>
+          @attr description
+           Number of waves/chevrons to show in animation. 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:feedbackCount
+        */
+        public static final int GlowPadView_feedbackCount = 12;
+        /**
+          <p>
+          @attr description
+           Size of target radius. Points within this distance of target center is a "hit". 
+
+        <attr name="hitRadius" format="dimension"/>
+        
+ Radius of glow under finger. 
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:glowRadius
+        */
+        public static final int GlowPadView_glowRadius = 9;
+        /**
+          <p>
+          @attr description
+           Sets a drawable as the center. 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:handleDrawable
+        */
+        public static final int GlowPadView_handleDrawable = 4;
+        /**
+          <p>
+          @attr description
+           Inner radius of glow area. 
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:innerRadius
+        */
+        public static final int GlowPadView_innerRadius = 7;
+        /**
+          <p>
+          @attr description
+           Outer radius of glow area. Target icons will be drawn on this circle. 
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:outerRadius
+        */
+        public static final int GlowPadView_outerRadius = 8;
+        /**
+          <p>
+          @attr description
+           Drawable to use for wave ripple animation. 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:outerRingDrawable
+        */
+        public static final int GlowPadView_outerRingDrawable = 5;
+        /**
+          <p>
+          @attr description
+           Drawble used for drawing points 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:pointDrawable
+        */
+        public static final int GlowPadView_pointDrawable = 6;
+        /**
+          <p>
+          @attr description
+           How close we need to be before snapping to a target. 
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:snapMargin
+        */
+        public static final int GlowPadView_snapMargin = 11;
+        /**
+          <p>
+          @attr description
+           Reference to an array resource that be used as description for the targets around the circle. 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:targetDescriptions
+        */
+        public static final int GlowPadView_targetDescriptions = 2;
+        /**
+          <p>
+          @attr description
+           Reference to an array resource that be shown as targets around a circle. 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:targetDrawables
+        */
+        public static final int GlowPadView_targetDrawables = 1;
+        /**
+          <p>
+          @attr description
+           Tactile feedback duration for actions. Set to '0' for no vibration. 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name it.buch85.timbrum:vibrationDuration
+        */
+        public static final int GlowPadView_vibrationDuration = 10;
         /** Attributes that can be used with a LinearLayoutICS.
            <p>Includes the following attributes:</p>
            <table>

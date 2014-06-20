@@ -1,0 +1,138 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_asdasa"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="it.buch85.timbrum.MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <RelativeLayout
+        android:id="@+id/summaryLayout"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="42dp"
+            android:gravity="top"
+            android:text="@string/worked" />
+
+        <TextView
+            android:id="@+id/textWorked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView2"
+            android:text="@string/n_a"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textRemainingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textWorked"
+            android:layout_marginTop="31dp"
+            android:gravity="top"
+            android:text="@string/remaining" />
+
+        <TextView
+            android:id="@+id/textRemaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textRemainingLabel"
+            android:text="@string/n_a"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/listLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adMobadView"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
+        android:layout_toRightOf="@+id/summaryLayout" >
+
+        <Button
+            android:id="@+id/buttonRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/refresh"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buttonRefresh"
+            android:layout_alignBottom="@+id/buttonRefresh"
+            android:layout_alignParentLeft="true"
+            android:paddingBottom="2dip"
+            android:paddingLeft="5dip"
+            android:paddingTop="2dip"
+            android:text="@string/textview_todaysLog"
+            android:textAppearance="?android:attr/listSeparatorTextViewStyle"
+            android:textSize="18sp" />
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/buttonRefresh" >
+
+        </ListView>
+    </RelativeLayout>
+    <com.fima.glowpadview.GlowPadView
+        android:id="@+id/glow_pad_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/glowpadview_margin_bottom"
+        android:focusable="true"
+        android:gravity="center"
+        app:directionDescriptions="@array/snooze_dismiss_direction_descriptions"
+        app:feedbackCount="1"
+        app:glowRadius="@dimen/glowpadview_glow_radius"
+        app:handleDrawable="@drawable/ic_alarm_alert_touch_handle"
+        app:innerRadius="@dimen/glowpadview_inner_radius"
+        app:outerRadius="@dimen/glowpadview_target_placement_radius"
+        app:outerRingDrawable="@drawable/ic_alarm_alert_outerring"
+        app:pointDrawable="@drawable/ic_lockscreen_glowdot"
+        app:snapMargin="@dimen/glowpadview_snap_margin"
+        app:targetDescriptions="@array/snooze_dismiss_descriptions"
+        app:targetDrawables="@array/snooze_dismiss_drawables"
+        app:vibrationDuration="20" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adMobadView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        app:adSize="BANNER"
+        app:adUnitId="@string/admobid" >
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>
