@@ -234,11 +234,12 @@ public class MainActivity extends Activity {
 							final CountDownLatch latch=new CountDownLatch(1);
 							final DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
 							    public void onClick(DialogInterface dialog, int whichButton) {
-							    	if(whichButton==1){
+							    	if(whichButton==DialogInterface.BUTTON_POSITIVE){
 							    		isConfirmed=true;
 							    	}else{
 							    		isConfirmed=false;
 							    	}
+							    	dialog.dismiss();
 							    	latch.countDown();
 							    }};
 							MainActivity.this.runOnUiThread(new Runnable() {

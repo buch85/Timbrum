@@ -28,7 +28,7 @@ public class LoginRequest extends AbstractRequest {
     private static String ACTION_FIELD = "m_cAction";
     private static String ACTION_FIELD_VALUE = "login";
 
-    private static String REDIRECT_OK_URL = "/servlet/../../hrpergon/servlet/../jsp/home.jsp";
+    private static String REDIRECT_OK_URL = "/jsp/home.jsp";
 
     public LoginRequest(HttpClient httpclient, HttpContext context) {
         super(httpclient, context);
