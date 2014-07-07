@@ -30,6 +30,10 @@
     <string name="remaining">Remaining</string>
     <string name="exceeding">Exceeding</string>
     
+    <string name="end_of_work_title">Work time is over</string>
+    <string name="end_of_work_message">You can now sign-out</string>
+    
+    
     <string name="confirm_entry_title">Entry Confirmation</string>
     <string name="confirm_exit_title">Exit Confirmation</string>
     <string name="confirm_entry_message">Are you sure you want to sign-in?</string>

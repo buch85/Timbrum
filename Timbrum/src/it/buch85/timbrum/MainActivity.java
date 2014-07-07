@@ -16,7 +16,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	public static final String NOTIFY_END_OF_WORK = "notify.end.of.work";
 
 	private TimbrumPreferences timbrumPreferences;
 	private ListView listView;
@@ -332,12 +335,22 @@ public class MainActivity extends Activity {
 						remainingText.setText(formatTime(-remaining));
 					} else {
 						remainingText.setText(formatTime(remaining));
+						setAlarm(remaining);
 					}
 				} else {
 					workedText.setText(getString(R.string.n_a));
 					remainingText.setText(getString(R.string.n_a));
 				}
 			}
+		}
+
+		private void setAlarm(long remaining) {
+			Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+			intent.setAction(NOTIFY_END_OF_WORK);
+		    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_ONE_SHOT);
+		    AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
+		    alarmManager.cancel(pendingIntent); // cancel any existing alarms
+		    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+remaining, pendingIntent);
 		}
 
 		private long getWorkedTime(ArrayList<RecordTimbratura> result, Date now, Date latestExit) {
