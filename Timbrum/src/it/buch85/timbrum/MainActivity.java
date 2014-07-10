@@ -7,7 +7,6 @@ import it.buch85.timbrum.request.RecordTimbratura;
 import it.buch85.timbrum.request.TimbraturaRequest;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
@@ -20,6 +19,7 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -38,8 +38,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	public static final String NOTIFY_END_OF_WORK = "notify.end.of.work";
-
 	private TimbrumPreferences timbrumPreferences;
 	private ListView listView;
 	private Button buttonRefresh;
@@ -320,69 +318,23 @@ public class MainActivity extends Activity {
 				remainingText.setText(getString(R.string.n_a));
 			} else {
 				listView.setAdapter(new ArrayAdapter<RecordTimbratura>(MainActivity.this, R.layout.row, R.id.textViewList, result));
-				if (validateRecords(result)) {
-					Date now = now();
-					Date latestExit = now;
-					if (result.get(result.size() - 1).isExit()) {
-						latestExit = result.get(result.size() - 1).getTimeFor(now);
-					}
-					long worked = getWorkedTime(result, now, latestExit);
-					long millisToWorkADay = timbrumPreferences.getTimeToWork();
+				ReportUtils logRecords = new ReportUtils(result);
+				if (logRecords.validate()) {
+					long worked = logRecords.getWorkedTime();
+					long remaining = logRecords.getRemainingTime(timbrumPreferences.getTimeToWork());
 					workedText.setText(formatTime(worked));
-					long remaining = millisToWorkADay - worked;
 					if (remaining < 0) {
 						remainingLabel.setText(getString(R.string.exceeding));
 						remainingText.setText(formatTime(-remaining));
 					} else {
 						remainingText.setText(formatTime(remaining));
-						setAlarm(remaining);
 					}
+					new EndOfWorkAlarm(getApplicationContext()).set(remaining<0?0:remaining);
 				} else {
 					workedText.setText(getString(R.string.n_a));
 					remainingText.setText(getString(R.string.n_a));
 				}
 			}
-		}
-
-		private void setAlarm(long remaining) {
-			Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-			intent.setAction(NOTIFY_END_OF_WORK);
-		    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_ONE_SHOT);
-		    AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
-		    alarmManager.cancel(pendingIntent); // cancel any existing alarms
-		    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+remaining, pendingIntent);
-		}
-
-		private long getWorkedTime(ArrayList<RecordTimbratura> result, Date now, Date latestExit) {
-			long worked = latestExit.getTime() - result.get(0).getTimeFor(now).getTime();
-			for (int i = 1; i < result.size(); i++) {
-				RecordTimbratura recordTimbratura = result.get(i);
-				if (recordTimbratura.getDirection().equals(TimbraturaRequest.VERSO_ENTRATA)) {
-					RecordTimbratura prev = result.get(i - 1);
-					long pausa = recordTimbratura.getTimeFor(now).getTime() - prev.getTimeFor(now).getTime();
-					worked -= pausa;
-				}
-			}
-			return worked;
-		}
-
-		private Date now() {
-			Calendar c = Calendar.getInstance();
-			c.setTime(new Date());
-			c.set(Calendar.SECOND, 0);
-			Date now = c.getTime();
-			return now;
-		}
-
-		private boolean validateRecords(ArrayList<RecordTimbratura> result) {
-			String check = TimbraturaRequest.VERSO_ENTRATA;
-			for (RecordTimbratura record : result) {
-				if (!check.equals(record.getDirection())) {
-					return false;
-				}
-				check = check == TimbraturaRequest.VERSO_ENTRATA ? TimbraturaRequest.VERSO_USCITA : TimbraturaRequest.VERSO_ENTRATA;
-			}
-			return true;
 		}
 
 		@Override
